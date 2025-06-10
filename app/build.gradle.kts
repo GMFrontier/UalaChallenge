@@ -82,6 +82,7 @@ dependencies {
     implementation(project(Modules.common))
     implementation(project(Modules.core))
     implementation(project(Modules.coreUi))
+    implementation(project(Modules.cityViewerPresentation))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycleRuntimeKtx)
