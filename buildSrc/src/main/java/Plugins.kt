@@ -20,4 +20,6 @@ object Plugins {
     const val ktLintVersion = "12.1.0"
     const val ktLintPlugin = "org.jlleitschuh.gradle.ktlint"
 
+    const val secretsVersion = "2.0.1"
+    const val secretsPlugin = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
 }

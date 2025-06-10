@@ -9,6 +9,10 @@ apply {
 
 android {
     namespace = ProjectConfig.appIdPrefix + "city_viewer_presentation"
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -18,4 +22,7 @@ dependencies {
     implementation(project(Modules.cityViewerDomain))
 
     implementation(Retrofit.gson)
+    implementation(Maps.gmsPlayServicesMaps)
+    implementation(Maps.mapsCompose)
+    implementation(Maps.mapsComposeUtils)
 }

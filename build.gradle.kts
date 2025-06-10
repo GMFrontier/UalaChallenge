@@ -6,6 +6,7 @@ plugins {
     id(Plugins.hiltAndroidPlugin) version (DaggerHilt.version) apply false
     id(Plugins.kspPlugin) version (Plugins.kspVersion) apply false
     id(Plugins.kotlinSerializationPlugin) version (Kotlin.version) apply false
+    id(Plugins.secretsPlugin) version (Plugins.secretsVersion) apply false
     id(Plugins.ktLintPlugin) version (Plugins.ktLintVersion) apply false
 }
 

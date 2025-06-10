@@ -9,6 +9,7 @@ plugins {
     id(Plugins.kotlinSerializationPlugin) version (Kotlin.version)
     id(Plugins.junit5Plugin) version (Plugins.junit5)
     id(Plugins.ktLintPlugin)
+    id(Plugins.secretsPlugin)
 }
 
 android {
@@ -27,7 +28,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -44,6 +45,12 @@ android {
     buildFeatures {
         compose = true
     }
+}
+
+secrets {
+    propertiesFileName = "secrets.properties"
+
+    defaultPropertiesFileName = "local.defaults.properties"
 }
 
 ktlint {
