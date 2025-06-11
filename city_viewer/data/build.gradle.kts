@@ -9,6 +9,20 @@ apply {
 
 android {
     namespace = ProjectConfig.appIdPrefix + "city_viewer_data"
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"${project.findProperty("BASE_URL")}\"")
+        }
+        release {
+            buildConfigField("String", "BASE_URL", "\"${project.findProperty("BASE_URL")}\"")
+            isMinifyEnabled = true
+        }
+    }
 }
 
 dependencies {
