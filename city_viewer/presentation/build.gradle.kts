@@ -22,4 +22,6 @@ dependencies {
     implementation(Maps.gmsPlayServicesMaps)
     implementation(Maps.mapsCompose)
     implementation(Maps.mapsComposeUtils)
+
+    implementation(Room.pagingCompose)
 }

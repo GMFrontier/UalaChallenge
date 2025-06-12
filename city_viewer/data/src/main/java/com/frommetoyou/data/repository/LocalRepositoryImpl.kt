@@ -12,8 +12,8 @@ class LocalRepositoryImpl @Inject constructor(
     private val dao: CityDao,
     private val dispatchers: CoroutinesDispatcherProvider
 ) : LocalRepository {
-    override fun getCities(filter: String): PagingSource<Int, City> {
-        return dao.getCities("%$filter%")
+    override fun getCities(filter: String, onlyFavorites: Boolean): PagingSource<Int, City> {
+        return dao.getCities(filter, onlyFavorites)
     }
 
     @Transaction
@@ -23,6 +23,10 @@ class LocalRepositoryImpl @Inject constructor(
 
     override suspend fun deleteCities(): Int {
         return dao.deleteCities()
+    }
+
+    override fun saveCity(city: City): Long {
+        return dao.saveCity(city)
     }
 
 

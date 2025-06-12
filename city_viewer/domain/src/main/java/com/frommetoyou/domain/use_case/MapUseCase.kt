@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import com.frommetoyou.core.util.Result
 import com.frommetoyou.domain.model.City
+import com.frommetoyou.domain.model.CityFilter
 import com.frommetoyou.domain.repository.LocalRepository
 import com.frommetoyou.domain.repository.MapRepository
 import kotlinx.coroutines.flow.Flow
@@ -48,14 +49,18 @@ class MapUseCase @Inject constructor(
         }
     }
 
-    fun getCitiesPaged(filter: String): Flow<PagingData<City>> {
+    fun getCitiesPaged(filter: CityFilter): Flow<PagingData<City>> {
         return Pager(
             config = PagingConfig(pageSize = 20, enablePlaceholders = false),
-            pagingSourceFactory = { localRepository.getCities("%$filter%") }
+            pagingSourceFactory = { localRepository.getCities(filter.query, filter.onlyFavorites) }
         ).flow
     }
 
     suspend fun deleteCities(): Int {
         return localRepository.deleteCities()
+    }
+
+    fun saveCity(city: City) {
+        localRepository.saveCity(city)
     }
 }

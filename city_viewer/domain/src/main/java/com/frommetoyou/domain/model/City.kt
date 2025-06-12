@@ -3,8 +3,10 @@ package com.frommetoyou.domain.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
+import kotlinx.serialization.Serializable
 
 @Entity(tableName = "city")
+@Serializable
 data class City(
     val name: String,
     val country: String,
@@ -14,9 +16,15 @@ data class City(
     val isFavorite: Boolean
 )
 
+@Serializable
 data class Coordinates(
     val lon: Double,
     val lat: Double
+)
+
+data class CityFilter(
+    val query: String = "",
+    val onlyFavorites: Boolean = false
 )
 
 class CoordinatesConverter {

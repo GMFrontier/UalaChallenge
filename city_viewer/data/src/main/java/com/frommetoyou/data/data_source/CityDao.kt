@@ -9,14 +9,19 @@ import com.frommetoyou.domain.model.City
 
 @Dao
 interface CityDao {
-    @Query("SELECT * FROM city WHERE name LIKE :filter OR country LIKE :filter ORDER BY name ASC")
-    fun getCities(filter: String): PagingSource<Int, City>
+    @Query("""
+         SELECT * FROM city 
+        WHERE name LIKE :filter || '%' COLLATE NOCASE
+        AND (:onlyFavorites == 0 OR isFavorite = 1)
+        ORDER BY name ASC
+    """)
+    fun getCities(filter: String, onlyFavorites: Boolean): PagingSource<Int, City>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveAllCities(cities: List<City>): List<Long>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveCity(city: City): Long
+    fun saveCity(city: City): Long
 
     @Query("DELETE FROM city")
     suspend fun deleteCities(): Int

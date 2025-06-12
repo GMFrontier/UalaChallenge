@@ -4,7 +4,12 @@ import androidx.paging.PagingSource
 import com.frommetoyou.domain.model.City
 
 interface LocalRepository {
-    fun getCities(filter: String = ""): PagingSource<Int, City>
+    fun getCities(
+        filter: String = "",
+        onlyFavorites: Boolean = false
+    ): PagingSource<Int, City>
+
     suspend fun saveAllCities(cities: List<City>): Unit
     suspend fun deleteCities(): Int
+    fun saveCity(city: City): Long
 }
