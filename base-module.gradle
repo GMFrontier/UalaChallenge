@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 apply plugin: Plugins.kspPlugin
 apply plugin: Plugins.hiltAndroidPlugin
+apply plugin: Plugins.kotlinSerializationPlugin
 
 android {
     compileSdk ProjectConfig.compileSdk

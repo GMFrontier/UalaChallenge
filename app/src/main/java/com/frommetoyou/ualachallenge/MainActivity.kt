@@ -1,6 +1,7 @@
 package com.frommetoyou.ualachallenge
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -32,23 +33,18 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     topBar = {
-                        val currentDestination = navController.currentBackStackEntryAsState().value
-                        when (currentDestination?.destination?.route) {
-                            MapRoute.route -> {
-                                MyToolbar(
-                                    title = "Back",
-                                    onBackClick = {
-                                        navController.navigate(FilterRoute.route)
-                                    }
-                                )
-                            }
-                            FilterRoute.route -> {
-                                // Podés mostrar otra toolbar o ninguna
-                            }
-                            else -> {
-                                // No mostrar toolbar en otras pantallas
-                            }
-                        }
+                        val currentBackStackEntry =
+                            navController.currentBackStackEntryAsState()
+                        if (currentBackStackEntry.value?.destination?.route?.contains(
+                                MapRoute::class.qualifiedName ?: ""
+                            ) == true
+                        )
+                            MyToolbar(
+                                title = "Back",
+                                onBackClick = {
+                                    navController.popBackStack()
+                                }
+                            )
                     }
                 ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {

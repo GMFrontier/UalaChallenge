@@ -1,6 +1,7 @@
 plugins {
     id(Plugins.androidLibraryPlugin)
     id(Plugins.kotlinAndroidPlugin)
+    id(Plugins.kotlinSerializationPlugin)
 }
 
 apply {
@@ -19,4 +20,6 @@ dependencies {
     implementation(Retrofit.gson)
 
     api(Room.pagingRuntime)
+    api(Kotlin.kotlinSerializationJson)
+
 }

@@ -2,7 +2,6 @@ plugins {
     id(Plugins.androidLibraryPlugin)
     id(Plugins.kotlinAndroidPlugin)
     id(Plugins.kspPlugin)
-    id(Plugins.kotlinSerializationPlugin)
 }
 
 apply {
@@ -16,8 +15,6 @@ android {
 dependencies {
     implementation(project(Modules.common))
     implementation(project(Modules.core))
-
-    implementation(Kotlin.kotlinSerializationJson)
 
     implementation(Room.roomRuntime)
     ksp(Room.roomCompiler)

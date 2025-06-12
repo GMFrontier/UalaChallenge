@@ -79,6 +79,12 @@ fun FilterScreen(
                 onCheckedChange = { showOnlyFavorites = it }
             )
         }
+        /*Button(
+            modifier = Modifier.padding(top = 12.dp),
+            onClick = { viewModel.deleteCities() }
+        ) {
+            Text("DELETEAR CITIEES")
+        }*/
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -158,9 +164,9 @@ fun CityItem(
                 .padding(vertical = 8.dp)
                 .weight(.8f)
         ) {
-            Text(text = city.name, style = MaterialTheme.typography.titleMedium)
+            Text(text = "${city.name}, ${city.country}", style = MaterialTheme.typography.titleMedium)
             Text(
-                text = city.country,
+                text = "Coordenadas: ${city.coordinates.lat}, ${city.coordinates.lon}",
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Gray
             )

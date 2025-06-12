@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import kotlinx.serialization.Serializable
 
-@Entity(tableName = "city")
 @Serializable
+@Entity(tableName = "city")
 data class City(
     val name: String,
     val country: String,
