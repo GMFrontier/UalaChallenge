@@ -17,6 +17,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.frommetoyou.core_ui.composables.MyToolbar
 import com.frommetoyou.ualachallenge.ui.navigation.CentralNavigation
+import com.frommetoyou.ualachallenge.ui.navigation.CityDetailRoute
 import com.frommetoyou.ualachallenge.ui.navigation.FilterRoute
 import com.frommetoyou.ualachallenge.ui.navigation.MapRoute
 import com.frommetoyou.ualachallenge.ui.theme.UalaChallengeTheme
@@ -35,8 +36,12 @@ class MainActivity : ComponentActivity() {
                     topBar = {
                         val currentBackStackEntry =
                             navController.currentBackStackEntryAsState()
+
                         if (currentBackStackEntry.value?.destination?.route?.contains(
                                 MapRoute::class.qualifiedName ?: ""
+                            ) == true
+                            ||  currentBackStackEntry.value?.destination?.route?.contains(
+                                CityDetailRoute::class.qualifiedName ?: ""
                             ) == true
                         )
                             MyToolbar(

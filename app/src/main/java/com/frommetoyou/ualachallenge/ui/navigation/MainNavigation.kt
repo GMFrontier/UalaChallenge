@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.frommetoyou.domain.model.City
+import com.frommetoyou.presentation.CityDetailScreen
 import com.frommetoyou.presentation.FilterScreen
 import com.frommetoyou.presentation.MapScreen
 import kotlinx.serialization.Serializable
@@ -14,9 +15,23 @@ import kotlin.reflect.typeOf
     val city: City
 )
 
+@Serializable data class CityDetailRoute(
+    val city: City
+)
+
 @Serializable data object FilterRoute
 
 fun NavGraphBuilder.mainSection(navController: NavController) {
+    composable<CityDetailRoute>(
+        typeMap = mapOf(
+            typeOf<City>() to CustomNavType.CityType,
+        )
+    ) {
+        val arguments = it.toRoute<MapRoute>()
+        CityDetailScreen(
+            city = arguments.city,
+        )
+    }
     composable<MapRoute>(
         typeMap = mapOf(
             typeOf<City>() to CustomNavType.CityType,
@@ -32,6 +47,11 @@ fun NavGraphBuilder.mainSection(navController: NavController) {
             onCityClick = { city ->
                 navController.navigate(
                     MapRoute(city)
+                )
+            },
+            onCityDetailClick = { city ->
+                navController.navigate(
+                    CityDetailRoute(city)
                 )
             }
         )

@@ -1,6 +1,8 @@
 package com.frommetoyou.presentation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,8 +14,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -30,10 +36,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.frommetoyou.core_ui.composables.bouncingClickable
 import com.frommetoyou.domain.model.City
 import com.frommetoyou.ualachallenge.common.R
 
@@ -41,6 +50,7 @@ import com.frommetoyou.ualachallenge.common.R
 fun FilterScreen(
     modifier: Modifier = Modifier,
     onCityClick: (City) -> Unit = {},
+    onCityDetailClick: (City) -> Unit = {},
     viewModel: MapViewModel = hiltViewModel()
 ) {
     var filterText by remember { mutableStateOf("") }
@@ -52,32 +62,48 @@ fun FilterScreen(
 
     val lazyPagingItems = viewModel.pagedCities.collectAsLazyPagingItems()
 
-    Column(modifier = modifier.padding(16.dp)) {
-        OutlinedTextField(
-            value = filterText,
-            onValueChange = { filterText = it },
-            placeholder = { Text("Filter") },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search Icon"
-                )
-            },
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text("Show only favorites")
-            Spacer(modifier = Modifier.width(8.dp))
-            Switch(
-                checked = showOnlyFavorites,
-                onCheckedChange = { showOnlyFavorites = it }
+    Column(modifier = modifier.padding(top = 16.dp)) {
+        Column(modifier = modifier.padding(horizontal = 16.dp)) {
+            OutlinedTextField(
+                value = filterText,
+                onValueChange = { filterText = it },
+                placeholder = { Text("Filter") },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search Icon"
+                    )
+                },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+                trailingIcon = {
+                    if (filterText.isNotEmpty())
+                        IconButton(
+                            onClick = {
+                                filterText = ""
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Clear,
+                                contentDescription = "Clear"
+                            )
+                        }
+                }
             )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text("Show only favorites", fontSize = 15.sp)
+                Switch(
+                    modifier = Modifier.height(32.dp),
+                    checked = showOnlyFavorites,
+                    onCheckedChange = { showOnlyFavorites = it }
+                )
+            }
         }
         /*Button(
             modifier = Modifier.padding(top = 12.dp),
@@ -86,9 +112,16 @@ fun FilterScreen(
             Text("DELETEAR CITIEES")
         }*/
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(14.dp))
 
-        LazyColumn {
+        HorizontalDivider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(2.dp)
+                .background(MaterialTheme.colorScheme.tertiary)
+        )
+
+        LazyColumn(modifier = modifier.padding(horizontal = 16.dp)) {
             items(count = lazyPagingItems.itemCount) { index ->
                 val city = lazyPagingItems[index]
                 city?.let {
@@ -97,11 +130,11 @@ fun FilterScreen(
                         onClick = { city ->
                             onCityClick(city)
                         },
+                        onCityDetailClick = onCityDetailClick,
                         onFavoriteClick = { viewModel.toggleFavorite(it) })
                 }
             }
 
-            // Paginación y estados de carga igual que antes
             lazyPagingItems.apply {
                 when {
                     loadState.refresh is LoadState.Loading -> {
@@ -141,44 +174,73 @@ fun FilterScreen(
     }
 }
 
-
 @Composable
 fun CityItem(
     city: City,
     onClick: (City) -> Unit = {},
+    onCityDetailClick: (City) -> Unit = {},
     onFavoriteClick: () -> Unit = {}
 ) {
     val favoriteIcon = if (city.isFavorite)
         painterResource(R.drawable.ic_star_filled)
     else
-        painterResource(R.drawable.ic_star_outlined)
-    Row(
+        painterResource(R.drawable.ic_star_outline)
+    Column(
         modifier = Modifier
-            .clickable {
+            .background(MaterialTheme.colorScheme.surface)
+            .bouncingClickable {
                 onClick(city)
-            },
-        verticalAlignment = Alignment.CenterVertically
+            }
+            .fillMaxWidth()
+            .padding(vertical = 2.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            modifier = Modifier
-                .padding(vertical = 8.dp)
-                .weight(.8f)
+        Row(
+            modifier = Modifier,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "${city.name}, ${city.country}", style = MaterialTheme.typography.titleMedium)
-            Text(
-                text = "Coordenadas: ${city.coordinates.lat}, ${city.coordinates.lon}",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Gray
+            Column(
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+                    .weight(.8f)
+            ) {
+                Text(
+                    text = "${city.name}, ${city.country}",
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = "Coordenadas: ${city.coordinates.lat}, ${city.coordinates.lon}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.Gray
+                )
+            }
+            Icon(
+                Icons.Default.Info,
+                contentDescription = "Favorite",
+                modifier = Modifier
+                    .size(40.dp)
+                    .padding(8.dp)
+                    .bouncingClickable {
+                        onCityDetailClick(city)
+                    },
+                tint = MaterialTheme.colorScheme.primary
             )
-        }
-        IconButton(
-            onClick = onFavoriteClick
-        ) {
             Icon(
                 favoriteIcon,
                 contentDescription = "Favorite",
-                modifier = Modifier.size(24.dp),
+                modifier = Modifier
+                    .size(40.dp)
+                    .padding(8.dp)
+                    .bouncingClickable {
+                        onFavoriteClick()
+                    },
+                tint = MaterialTheme.colorScheme.primary
             )
         }
+        HorizontalDivider(
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .height(1.dp)
+        )
     }
 }

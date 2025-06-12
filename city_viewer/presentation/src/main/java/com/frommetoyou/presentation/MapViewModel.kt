@@ -49,7 +49,7 @@ class MapViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val pagedCities = searchQuery
-        .debounce(250)
+        .debounce(25)
         .distinctUntilChanged()
         .flatMapLatest { filter ->
             mapUseCase.getCitiesPaged(filter)
