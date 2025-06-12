@@ -9,14 +9,11 @@ apply {
 
 android {
     namespace = ProjectConfig.appIdPrefix + "city_viewer_presentation"
-
-    buildFeatures {
-        buildConfig = true
-    }
 }
 
 dependencies {
 
+    implementation(project(Modules.core))
     implementation(project(Modules.coreUi))
     implementation(project(Modules.common))
     implementation(project(Modules.cityViewerDomain))

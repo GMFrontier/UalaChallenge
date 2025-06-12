@@ -16,5 +16,7 @@ android {
 dependencies {
     implementation(project(Modules.common))
     implementation(Kotlin.kotlinSerializationJson)
+    implementation(Compose.uiTooling)
+    implementation(Compose.uiToolingPreview)
 
 }

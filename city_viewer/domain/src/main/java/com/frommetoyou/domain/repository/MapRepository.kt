@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 import com.frommetoyou.core.util.Result
 
 interface MapRepository {
-    fun getCities(): Flow<Result<City>>
+    fun getCities(): Flow<Result<List<City>>>
 }

@@ -1,6 +1,8 @@
 plugins {
     id(Plugins.androidLibraryPlugin)
     id(Plugins.kotlinAndroidPlugin)
+    id(Plugins.kspPlugin)
+    id(Plugins.secretsPlugin)
 }
 
 apply {
@@ -14,15 +16,12 @@ android {
         buildConfig = true
     }
 
-    buildTypes {
-        debug {
-            buildConfigField("String", "BASE_URL", "\"${project.findProperty("BASE_URL")}\"")
-        }
-        release {
-            buildConfigField("String", "BASE_URL", "\"${project.findProperty("BASE_URL")}\"")
-            isMinifyEnabled = true
-        }
+    secrets {
+        propertiesFileName = "secrets.properties"
+
+        defaultPropertiesFileName = "local.defaults.properties"
     }
+
 }
 
 dependencies {
@@ -34,4 +33,9 @@ dependencies {
     implementation(Retrofit.retrofit)
     implementation(Retrofit.okHttpLoggingInterceptor)
     implementation(Retrofit.gson)
+
+    implementation(Room.roomRuntime)
+    ksp(Room.roomCompiler)
+    implementation(Room.roomRtx)
+    implementation(Room.roomPaging)
 }

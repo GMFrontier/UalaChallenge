@@ -7,6 +7,6 @@ import retrofit2.http.GET
 interface MapApi {
 
     @GET("cities.json/")
-    suspend fun getCities() : Response<CityResponse>
+    suspend fun getCities() : Response<List<CityResponse>>
 
 }

@@ -9,7 +9,7 @@ object Plugins {
     const val kotlinSerializationPlugin =
         "org.jetbrains.kotlin.plugin.serialization"
 
-     const val kspVersion = "2.1.20-2.0.0"
+    const val kspVersion = "2.1.20-2.0.0"
     const val kspPlugin = "com.google.devtools.ksp"
     const val hiltAndroidPlugin =
         "com.google.dagger.hilt.android"
@@ -21,5 +21,6 @@ object Plugins {
     const val ktLintPlugin = "org.jlleitschuh.gradle.ktlint"
 
     const val secretsVersion = "2.0.1"
-    const val secretsPlugin = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
+    const val secretsPlugin =
+        "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
 }

@@ -10,16 +10,13 @@ apply {
 android {
     namespace = ProjectConfig.appIdPrefix + "core"
 
-    buildFeatures {
-        buildConfig = true
-    }
 }
 
 dependencies {
-
-
     implementation(Retrofit.okHttp)
     implementation(Retrofit.retrofit)
     implementation(Retrofit.okHttpLoggingInterceptor)
     implementation(Retrofit.gson)
+
+    api(Room.pagingRuntime)
 }

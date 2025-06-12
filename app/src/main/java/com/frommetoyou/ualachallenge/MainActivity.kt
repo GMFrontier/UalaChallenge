@@ -12,8 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.frommetoyou.core_ui.composables.MyToolbar
 import com.frommetoyou.ualachallenge.ui.navigation.CentralNavigation
+import com.frommetoyou.ualachallenge.ui.navigation.FilterRoute
+import com.frommetoyou.ualachallenge.ui.navigation.MapRoute
 import com.frommetoyou.ualachallenge.ui.theme.UalaChallengeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,8 +28,29 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             UalaChallengeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val navController = rememberNavController()
+                val navController = rememberNavController()
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = {
+                        val currentDestination = navController.currentBackStackEntryAsState().value
+                        when (currentDestination?.destination?.route) {
+                            MapRoute.route -> {
+                                MyToolbar(
+                                    title = "Back",
+                                    onBackClick = {
+                                        navController.navigate(FilterRoute.route)
+                                    }
+                                )
+                            }
+                            FilterRoute.route -> {
+                                // Podés mostrar otra toolbar o ninguna
+                            }
+                            else -> {
+                                // No mostrar toolbar en otras pantallas
+                            }
+                        }
+                    }
+                ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
                         CentralNavigation(navController)
                     }

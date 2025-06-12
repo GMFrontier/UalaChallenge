@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 fun CentralNavigation(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screens.MapScreen.route
+        startDestination = Screens.FilterScreen.route
     ) {
         mainSection(navController)
     }

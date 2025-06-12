@@ -1,6 +1,7 @@
 plugins {
     id(Plugins.androidLibraryPlugin)
     id(Plugins.kotlinAndroidPlugin)
+    id(Plugins.kspPlugin)
 }
 
 apply {
@@ -14,4 +15,8 @@ android {
 dependencies {
     implementation(project(Modules.common))
     implementation(project(Modules.core))
+
+    implementation(Room.roomRuntime)
+    ksp(Room.roomCompiler)
+    implementation(Room.roomRtx)
 }

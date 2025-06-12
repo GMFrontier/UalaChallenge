@@ -21,12 +21,11 @@ class MapRepositoryImpl @Inject constructor(
     private val api: MapApi,
     private val dispatchers: CoroutinesDispatcherProvider
 ) : MapRepository {
-    override fun getCities(): Flow<Result<City>> = flow {
+    override fun getCities(): Flow<Result<List<City>>> = flow {
         emit(api.getCities())
     }
         .catch { emit(it.getResponseError()) }
         .map { it.parseResponse() }
-        .map { result -> result.mapSuccess { it.toCity() } }
+        .map { result -> result.mapSuccess { it.map { item -> item.toCity() } } }
         .flowOn(dispatchers.io)
-
 }
