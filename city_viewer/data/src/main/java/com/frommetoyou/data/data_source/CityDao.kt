@@ -25,4 +25,11 @@ interface CityDao {
 
     @Query("DELETE FROM city")
     suspend fun deleteCities(): Int
+
+    @Query("""
+        SELECT COUNT(*) FROM city
+        WHERE (:query IS NULL OR name LIKE '%' || :query || '%' OR country LIKE '%' || :query || '%')
+        AND (:onlyFavorites = 0 OR isFavorite = 1)
+    """)
+    suspend fun countCities(query: String?, onlyFavorites: Boolean): Int
 }

@@ -30,14 +30,13 @@ class MapViewModel @Inject constructor(
     private val _searchQuery = MutableStateFlow(CityFilter())
     val searchQuery = _searchQuery.asStateFlow()
 
-
     fun getCities() = viewModelScope.launch(dispatcherProvider.io) {
-        mapUseCase.getCities()
+        mapUseCase.ensureCitiesExistIfNeeded()
             .withLoadingState()
             .collect { result ->
                 when (result) {
                     is Result.Success -> {
-                        _uiState.value = UiState.Success(result.data)
+                        _uiState.value = UiState.Success
                     }
                     is Result.Loading -> {
                         _uiState.value = UiState.Loading
@@ -77,10 +76,7 @@ class MapViewModel @Inject constructor(
 }
 
 sealed interface UiState {
-    data class Success(
-        val city: List<City>
-    ) : UiState
-
+    data object Success : UiState
     data object Error : UiState
     data object Loading : UiState
     data object Nothing : UiState

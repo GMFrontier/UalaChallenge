@@ -16,6 +16,8 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -64,21 +66,28 @@ fun FilterScreen(
     val lazyPagingItems = viewModel.pagedCities.collectAsLazyPagingItems()
     Scaffold(
         bottomBar = {
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                onClick = { viewModel.deleteCities() }
-            ) {
-                Text(UiText.StringResource(R.string.clear_db).asString())
-            }
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(42.dp),
-                onClick = { viewModel.getCities() }
-            ) {
-                Text(UiText.StringResource(R.string.get_cities).asString())
+            Column {
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    onClick = { viewModel.deleteCities() },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Text(
+                        UiText.StringResource(R.string.clear_db,
+                        ).asString())
+                }
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    onClick = { viewModel.getCities() }
+                ) {
+                    Text(UiText.StringResource(R.string.get_cities).asString())
+                }
             }
         }
     ) { paddingValues ->

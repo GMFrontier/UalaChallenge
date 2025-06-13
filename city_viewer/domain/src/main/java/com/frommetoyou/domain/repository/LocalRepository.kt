@@ -12,4 +12,5 @@ interface LocalRepository {
     suspend fun saveAllCities(cities: List<City>): Unit
     suspend fun deleteCities(): Int
     fun saveCity(city: City): Long
+    suspend fun countCities(filter: String, onlyFavorites: Boolean): Int
 }
