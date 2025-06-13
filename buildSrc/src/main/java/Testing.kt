@@ -16,7 +16,7 @@ object Testing {
     private const val coroutinesTestVersion = "1.10.2"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesTestVersion"
 
-    private const val mockkVersion = "1.12.5"
+    private const val mockkVersion = "1.14.2"
     const val mockk = "io.mockk:mockk:$mockkVersion"
     const val mockkAndroid = "io.mockk:mockk-android:$mockkVersion"
     private const val mockWebServerVersion = "4.11.0"

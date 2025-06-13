@@ -37,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -137,7 +138,8 @@ fun FilterScreen(
                             .asString(), fontSize = 15.sp
                     )
                     Switch(
-                        modifier = Modifier.height(32.dp),
+                        modifier = Modifier.height(32.dp)
+                            .testTag(UiText.StringResource(R.string.show_favorites).asString()),
                         checked = showOnlyFavorites,
                         onCheckedChange = { showOnlyFavorites = it }
                     )
@@ -280,10 +282,11 @@ fun CityItem(
             }
             Icon(
                 Icons.Default.Info,
-                contentDescription = "Favorite",
+                contentDescription = UiText.StringResource(R.string.info).asString(),
                 modifier = Modifier
                     .size(40.dp)
                     .padding(8.dp)
+                    .testTag(UiText.StringResource(R.string.info).asString()+city.id)
                     .bouncingClickable {
                         onCityDetailClick(city)
                     },
@@ -291,10 +294,11 @@ fun CityItem(
             )
             Icon(
                 favoriteIcon,
-                contentDescription = "Favorite",
+                contentDescription = UiText.StringResource(R.string.favorite).asString(),
                 modifier = Modifier
                     .size(40.dp)
                     .padding(8.dp)
+                    .testTag(UiText.StringResource(R.string.favorite).asString()+city.id)
                     .bouncingClickable {
                         onFavoriteClick()
                     },

@@ -10,7 +10,7 @@ interface LocalRepository {
     ): PagingSource<Int, City>
 
     suspend fun saveAllCities(cities: List<City>): Unit
-    suspend fun deleteCities(): Int
+    fun deleteCities(): Int
     fun saveCity(city: City): Long
     suspend fun countCities(filter: String, onlyFavorites: Boolean): Int
 }

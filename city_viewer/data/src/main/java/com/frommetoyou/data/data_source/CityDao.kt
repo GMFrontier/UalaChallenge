@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.frommetoyou.domain.model.City
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CityDao {
@@ -24,7 +25,7 @@ interface CityDao {
     fun saveCity(city: City): Long
 
     @Query("DELETE FROM city")
-    suspend fun deleteCities(): Int
+    fun deleteCities(): Int
 
     @Query("""
         SELECT COUNT(*) FROM city
@@ -32,4 +33,7 @@ interface CityDao {
         AND (:onlyFavorites = 0 OR isFavorite = 1)
     """)
     suspend fun countCities(query: String?, onlyFavorites: Boolean): Int
+
+    @Query("SELECT * FROM city WHERE name LIKE '%' || :filter || '%'")
+    fun observeCities(filter: String): Flow<List<City>>
 }

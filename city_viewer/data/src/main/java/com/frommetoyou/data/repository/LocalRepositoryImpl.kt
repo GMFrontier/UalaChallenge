@@ -24,7 +24,7 @@ class LocalRepositoryImpl @Inject constructor(
         dao.saveAllCities(cities)
     }
 
-    override suspend fun deleteCities(): Int {
+    override fun deleteCities(): Int {
         return dao.deleteCities()
     }
 

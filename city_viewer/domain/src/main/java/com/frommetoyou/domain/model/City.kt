@@ -14,7 +14,19 @@ data class City(
     val id: Long,
     val coordinates: Coordinates,
     val isFavorite: Boolean
-)
+) {
+    companion object {
+        fun getDefaultCity(): City {
+            return City(
+                name = "Buenos Aires",
+                country = "AR",
+                id = 1L,
+                coordinates = Coordinates(0.0, 0.0),
+                isFavorite = false
+            )
+        }
+    }
+}
 
 @Serializable
 data class Coordinates(

@@ -5,6 +5,7 @@ object Room {
     const val roomCompiler = "androidx.room:room-compiler:$roomVersion"
     const val roomRtx = "androidx.room:room-ktx:$roomVersion"
     const val roomPaging = "androidx.room:room-paging:$roomVersion"
+    const val roomTesting = "androidx.room:room-testing:$roomVersion"
 
     private const val pagingVersion = "3.3.6"
     const val pagingRuntime = "androidx.paging:paging-runtime:$pagingVersion"

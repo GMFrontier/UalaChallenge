@@ -55,7 +55,7 @@ class MapUseCase @Inject constructor(
         )
     }
 
-    suspend fun deleteCities(): Int {
+    fun deleteCities(): Int {
         return localRepository.deleteCities()
     }
 

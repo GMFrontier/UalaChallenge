@@ -44,7 +44,9 @@ class MapViewModel @Inject constructor(
                     is Result.Failure -> {
                         _uiState.value = UiState.Error
                     }
-                    else -> {}
+                    is Result.NotLoading -> {
+                        _uiState.value = UiState.Nothing
+                    }
                 }
             }
     }
