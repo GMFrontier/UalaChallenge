@@ -1,4 +1,4 @@
-# Superformula Mobile Developer Coding Test
+# Mobile Challenge - Ualá
 
 ### Demo video
 Aqui se puede ver cómo el usuario abre la aplicación, y comienza a cargar las ciudades. Estas ciudades se descargan con el gist de JSON provisto, una vez descargado se divide en batches de 100 unidades y se van a almacenando en la base de datos de manera concurrente para reducir el tiempo de carga para el usuario.
@@ -10,7 +10,9 @@ Al tocar en el botón Info de una ciudad se navega hacia los detalles de la ciud
 
 `El filtro de ciudades se hizo con paginación (Paging3) de modo que las búsquedas responden casi instantáneamente a requerimiento del usuario`
 
-Por último al tocar en una ciudad se despliega un mapa con un marcador en las coordenadas provistas, el mapa se presenta con una animación en zoom out para mostrar un area visual coherente.
+Al tocar en una ciudad se despliega un mapa con un marcador en las coordenadas provistas, el mapa se presenta con una animación en zoom out para mostrar un area visual coherente.
+
+`Los estados de filtro por favoritos y nombre se guardan para la recomposición en modo portrait o landscape`
 
 ----------------
 
