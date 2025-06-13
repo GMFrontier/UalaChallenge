@@ -1,5 +1,8 @@
 package com.frommetoyou.presentation
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
@@ -29,6 +32,21 @@ class MapViewModel @Inject constructor(
 
     private val _searchQuery = MutableStateFlow(CityFilter())
     val searchQuery = _searchQuery.asStateFlow()
+
+
+    var filterText by mutableStateOf("")
+        private set
+
+    var showOnlyFavorites by mutableStateOf(false)
+        private set
+
+    fun onFilterTextChanged(newText: String) {
+        filterText = newText
+    }
+
+    fun onShowOnlyFavoritesChanged(isChecked: Boolean) {
+        showOnlyFavorites = isChecked
+    }
 
     fun getCities() = viewModelScope.launch(dispatcherProvider.io) {
         mapUseCase.ensureCitiesExistIfNeeded()

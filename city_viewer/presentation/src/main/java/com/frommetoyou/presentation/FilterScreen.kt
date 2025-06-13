@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -33,6 +34,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,12 +54,13 @@ import com.frommetoyou.ualachallenge.common.R
 @Composable
 fun FilterScreen(
     modifier: Modifier = Modifier,
+    landscape: Boolean = false,
     onCityClick: (City) -> Unit = {},
     onCityDetailClick: (City) -> Unit = {},
     viewModel: MapViewModel = hiltViewModel()
 ) {
-    var filterText by remember { mutableStateOf("") }
-    var showOnlyFavorites by remember { mutableStateOf(false) }
+    var filterText = viewModel.filterText
+    var showOnlyFavorites = viewModel.showOnlyFavorites
     val uiState = viewModel.uiState.collectAsState().value
 
     LaunchedEffect(filterText, showOnlyFavorites) {
@@ -66,37 +69,20 @@ fun FilterScreen(
 
     val lazyPagingItems = viewModel.pagedCities.collectAsLazyPagingItems()
     Scaffold(
+        modifier = modifier.fillMaxSize().padding(start = if(landscape) 32.dp else 0.dp),
         bottomBar = {
-            Column {
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    onClick = { viewModel.deleteCities() },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.error
-                    )
-                ) {
-                    Text(
-                        UiText.StringResource(R.string.clear_db,
-                        ).asString())
-                }
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    onClick = { viewModel.getCities() }
-                ) {
-                    Text(UiText.StringResource(R.string.get_cities).asString())
+            if (landscape.not()) {
+                Column {
+                    ActionButtons(viewModel::deleteCities, viewModel::getCities)
                 }
             }
         }
     ) { paddingValues ->
-        Column(modifier = modifier.padding(top = 16.dp)) {
-            Column(modifier = modifier.padding(horizontal = 16.dp)) {
+        Column(modifier = Modifier.padding(top = 16.dp)) {
+            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
                 OutlinedTextField(
                     value = filterText,
-                    onValueChange = { filterText = it },
+                    onValueChange = { viewModel.onFilterTextChanged(it) },
                     placeholder = {
                         Text(
                             UiText.StringResource(R.string.filter).asString()
@@ -115,7 +101,7 @@ fun FilterScreen(
                         if (filterText.isNotEmpty())
                             IconButton(
                                 onClick = {
-                                    filterText = ""
+                                    viewModel.onFilterTextChanged("")
                                 }
                             ) {
                                 Icon(
@@ -141,7 +127,7 @@ fun FilterScreen(
                         modifier = Modifier.height(32.dp)
                             .testTag(UiText.StringResource(R.string.show_favorites).asString()),
                         checked = showOnlyFavorites,
-                        onCheckedChange = { showOnlyFavorites = it }
+                        onCheckedChange = { viewModel.onShowOnlyFavoritesChanged(it)  }
                     )
                 }
             }
@@ -310,5 +296,28 @@ fun CityItem(
                 .fillMaxWidth(0.8f)
                 .height(1.dp)
         )
+    }
+}
+
+@Composable
+fun ActionButtons(deleteCities: () -> Unit, getCities: () -> Unit,  ) {
+    Button(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        onClick = deleteCities,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.error
+        )
+    ) {
+        Text(UiText.StringResource(R.string.clear_db).asString())
+    }
+    Button(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        onClick = getCities
+    ) {
+        Text(UiText.StringResource(R.string.get_cities).asString())
     }
 }

@@ -8,6 +8,7 @@ import com.frommetoyou.domain.model.City
 import com.frommetoyou.presentation.CityDetailScreen
 import com.frommetoyou.presentation.FilterScreen
 import com.frommetoyou.presentation.MapScreen
+import com.frommetoyou.ualachallenge.ui.screen.HomeScreen
 import kotlinx.serialization.Serializable
 import kotlin.reflect.typeOf
 
@@ -21,7 +22,12 @@ import kotlin.reflect.typeOf
 
 @Serializable data object FilterRoute
 
+@Serializable data object HomeRoute
+
 fun NavGraphBuilder.mainSection(navController: NavController) {
+    composable<HomeRoute> {
+        HomeScreen(navController)
+    }
     composable<CityDetailRoute>(
         typeMap = mapOf(
             typeOf<City>() to CustomNavType.CityType,

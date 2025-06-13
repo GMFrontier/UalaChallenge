@@ -13,11 +13,12 @@ import com.google.maps.android.compose.rememberUpdatedMarkerState
 
 @Composable
 fun GoogleMaps(
+    modifier: Modifier = Modifier,
     initialCameraPosition: CameraPositionState,
     markers: List<LatLng> = emptyList()
 ) {
     GoogleMap(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         cameraPositionState = initialCameraPosition,
         properties = MapProperties(isMyLocationEnabled = false)
     ) {

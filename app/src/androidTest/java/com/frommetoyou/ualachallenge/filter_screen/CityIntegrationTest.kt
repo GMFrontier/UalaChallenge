@@ -4,7 +4,6 @@ import androidx.activity.viewModels
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.paging.PagingSource
 import assertk.assertThat
-import assertk.assertions.isFalse
 import assertk.assertions.isTrue
 import com.frommetoyou.data.data_source.CityDao
 import com.frommetoyou.domain.model.City
@@ -14,7 +13,6 @@ import com.frommetoyou.ualachallenge.AppAndroidTest
 import com.frommetoyou.ualachallenge.MainActivity
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -44,7 +42,6 @@ class CityIntegrationTest : AppAndroidTest() {
         dao.deleteCities()
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun testThatRoomSavesFavoriteCity_PagingReturnsSavedCity() = runTest {
         baCity = baCity.copy(isFavorite = false)

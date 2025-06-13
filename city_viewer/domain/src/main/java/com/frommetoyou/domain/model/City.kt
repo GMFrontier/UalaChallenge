@@ -21,7 +21,7 @@ data class City(
                 name = "Buenos Aires",
                 country = "AR",
                 id = 1L,
-                coordinates = Coordinates(0.0, 0.0),
+                coordinates = Coordinates(-58.377232, -34.613152),
                 isFavorite = false
             )
         }

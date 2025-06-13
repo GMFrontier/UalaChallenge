@@ -139,11 +139,8 @@ dependencies {
     androidTestImplementation(Room.roomRuntime)
     androidTestImplementation(Room.roomRtx)
     kspAndroidTest(Room.roomCompiler)
-    androidTestImplementation(Room.roomTesting)
     androidTestImplementation(Room.roomPaging)
     androidTestImplementation(Room.pagingRuntime)
-    androidTestImplementation(Room.pagingCompose)
-    androidTestImplementation(Kotlin.kotlinSerializationJson)
 
     debugImplementation(Compose.uiTooling)
     debugImplementation(Testing.uiTestManifest)

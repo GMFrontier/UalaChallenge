@@ -42,7 +42,6 @@ fun TopAppBar(navController: NavController) {
 
     LaunchedEffect(currentRoute) {
         val routesThatShowToolbar = listOf(
-            MapRoute::class.qualifiedName ?: "",
             CityDetailRoute::class.qualifiedName ?: ""
         )
 

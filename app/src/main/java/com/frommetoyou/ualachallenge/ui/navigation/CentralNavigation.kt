@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 fun CentralNavigation(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = FilterRoute
+        startDestination = HomeRoute
     ) {
         mainSection(navController)
     }

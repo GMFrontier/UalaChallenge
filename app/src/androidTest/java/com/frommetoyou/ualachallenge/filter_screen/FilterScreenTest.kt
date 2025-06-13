@@ -31,8 +31,6 @@ class FilterScreenTest : AppAndroidTest() {
 
     @Before
     fun setup() {
-        super.setUp()
-        hiltRule.inject()
         baCity = getDefaultCity()
         lpCity = baCity.copy(name = "La Plata", id = 2L)
         localRepository.saveCity(

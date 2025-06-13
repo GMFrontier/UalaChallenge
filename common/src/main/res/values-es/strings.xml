@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">Volver</string>
+    <string name="filter">Filtrar</string>
+    <string name="icon">Ícono</string>
+    <string name="clear">Limpiar</string>
+    <string name="show_favorites">Mostrar solo favoritos</string>
+    <string name="error">Error %1$s</string>
+    <string name="clear_db">Limpiar base de datos Room</string>
+    <string name="get_cities">Obtener ciudades</string>
+    <string name="city_id">Id: %1$d</string>
+    <string name="favorite">Favorito:</string>
+    <string name="city_lat">Latitud: %1$s</string>
+    <string name="city_lon">Longitud: %1$s</string>
+    <string name="info">Información</string>
+</resources>

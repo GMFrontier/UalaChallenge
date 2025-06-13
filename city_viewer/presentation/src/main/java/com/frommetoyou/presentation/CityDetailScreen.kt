@@ -30,7 +30,7 @@ fun CityDetailScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(42.dp)
     ) {
         CityDetailCard(city = city)
     }
