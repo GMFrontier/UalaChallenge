@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">Back</string>
+    <string name="filter">Filter</string>
+    <string name="icon">Icon</string>
+    <string name="clear">Clear</string>
+    <string name="show_favorites">Show only favorites</string>
+    <string name="error">Error $1%s</string>
+    <string name="clear_db">Clear Room DB</string>
+    <string name="get_cities">Get cities</string>
+    <string name="city_id">Id: %1$d</string>
+    <string name="favorite">Favorite:</string>
+    <string name="city_lat">Latitude: %1$s</string>
+    <string name="city_lon">Longitude: %1$s</string>
+</resources>

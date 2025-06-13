@@ -3,6 +3,7 @@ package com.frommetoyou.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.frommetoyou.core.extensions.withLoadingState
 import com.frommetoyou.core.util.CoroutinesDispatcherProvider
 import com.frommetoyou.core.util.Result
 import com.frommetoyou.domain.model.City
@@ -32,12 +33,18 @@ class MapViewModel @Inject constructor(
 
     fun getCities() = viewModelScope.launch(dispatcherProvider.io) {
         mapUseCase.getCities()
+            .withLoadingState()
             .collect { result ->
                 when (result) {
                     is Result.Success -> {
                         _uiState.value = UiState.Success(result.data)
                     }
-
+                    is Result.Loading -> {
+                        _uiState.value = UiState.Loading
+                    }
+                    is Result.Failure -> {
+                        _uiState.value = UiState.Error
+                    }
                     else -> {}
                 }
             }

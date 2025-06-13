@@ -17,9 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.frommetoyou.core_ui.utils.UiText
 import com.frommetoyou.domain.model.City
 import com.frommetoyou.ualachallenge.common.R
 
@@ -55,16 +55,16 @@ fun CityDetailCard(city: City) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Id: ${city.id}",
+                text = UiText.StringResource(R.string.city_id, arrayOf(city.id)).asString(),
                 style = MaterialTheme.typography.bodyLarge
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Latitude: ${city.coordinates.lat}",
+                text = UiText.StringResource(R.string.city_lat, arrayOf(city.coordinates.lat)).asString(),
                 style = MaterialTheme.typography.bodyLarge
             )
             Text(
-                text = "Longitude: ${city.coordinates.lon}",
+                text =  UiText.StringResource(R.string.city_lon, arrayOf(city.coordinates.lon)).asString(),
                 style = MaterialTheme.typography.bodyLarge
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -72,7 +72,7 @@ fun CityDetailCard(city: City) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Favorite:",
+                    text = UiText.StringResource(R.string.favorite).asString(),
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Icon(
@@ -80,7 +80,7 @@ fun CityDetailCard(city: City) {
                         painterResource(id = R.drawable.ic_star_filled)
                     else
                         painterResource(id = R.drawable.ic_star_outline),
-                    contentDescription = "Favorite Status",
+                    contentDescription = UiText.StringResource(R.string.favorite).asString(),
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .padding(start = 8.dp)

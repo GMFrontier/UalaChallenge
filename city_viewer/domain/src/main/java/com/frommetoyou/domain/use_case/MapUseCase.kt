@@ -9,8 +9,11 @@ import com.frommetoyou.domain.model.City
 import com.frommetoyou.domain.model.CityFilter
 import com.frommetoyou.domain.repository.LocalRepository
 import com.frommetoyou.domain.repository.MapRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MapUseCase @Inject constructor(
@@ -38,13 +41,17 @@ class MapUseCase @Inject constructor(
             repository.getCities().collect { remoteResult ->
                 if (remoteResult is Result.Success) {
                     val cities = remoteResult.data
-                    val chunkSize = 500
+                    val chunkSize = 100
+                    emit(remoteResult)
 
                     cities.chunked(chunkSize).forEach { chunk ->
-                        localRepository.saveAllCities(chunk)
+                        withContext(Dispatchers.IO) {
+                            launch {
+                                localRepository.saveAllCities(chunk)
+                            }
+                        }
                     }
                 }
-                emit(remoteResult)
             }
         }
     }

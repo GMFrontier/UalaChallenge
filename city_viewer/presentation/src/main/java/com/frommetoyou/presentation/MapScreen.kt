@@ -1,11 +1,9 @@
 package com.frommetoyou.presentation
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import com.frommetoyou.core_ui.composables.MyToolbar
 import com.frommetoyou.domain.model.City
 import com.frommetoyou.presentation.composables.GoogleMaps
 import com.google.android.gms.maps.CameraUpdateFactory
