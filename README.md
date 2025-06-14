@@ -14,6 +14,8 @@ Al tocar en una ciudad se despliega un mapa con un marcador en las coordenadas p
 
 `Los estados de filtro por favoritos y nombre se guardan para la recomposición en modo portrait o landscape`
 
+[uala3.webm](https://github.com/user-attachments/assets/6e47d4a4-e124-475f-93a8-087a3caf9a9a)
+
 ----------------
 
 ## Clonación y run del proyecto
